@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trustacco | Trusted Stays, Safer Bookings</title>
+  <style>
+    :root {
+      --bg: #f5f8fc;
+      --text: #142033;
+      --muted: #5b6675;
+      --primary: #0f62fe;
+      --primary-dark: #0b4dcc;
+      --secondary: #0f766e;
+      --accent: #e8f1ff;
+      --accent-2: #e8faf5;
+      --card: #ffffff;
+      --border: #dce6f3;
+      --shadow: 0 16px 40px rgba(18, 35, 56, 0.08);
+      --radius: 20px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      padding: 76px 0 44px;
+      background:
+        radial-gradient(circle at top left, rgba(15,98,254,.10), transparent 35%),
+        radial-gradient(circle at right, rgba(15,118,110,.10), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f5f8fc 100%);
+    }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: .88rem;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1.08;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.06rem;
+      margin: 0 0 26px;
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .stat, .card, .search-box, .trust-panel, .contact-panel, form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.55rem;
+      margin-bottom: 2px;
+    }
+
+    .search-box {
+      padding: 26px;
+    }
+
+    .search-box h3 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+
+    .search-box p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .field {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .field small {
+      display: block;
+      color: var(--muted);
+      font-size: .82rem;
+      margin-bottom: 4px;
+    }
+
+    .field strong {
+      display: block;
+      font-size: .97rem;
+    }
+
+    .trust-highlight {
+      margin-top: 16px;
+      background: var(--accent-2);
+      border: 1px solid #cdeee6;
+      color: #12564f;
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-weight: 700;
+    }
+
+    section { padding: 70px 0; }
+
+    .section-title {
+      max-width: 760px;
+      text-align: center;
+      margin: 0 auto 36px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    .section-title p { margin: 0; color: var(--muted); }
+
+    .grid-3, .grid-4 {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card { padding: 24px; }
+    .card h3 { margin: 0 0 10px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      font-size: 1.3rem;
+      background: var(--accent);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .feature-list, .checklist {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .check {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: white;
+      color: var(--muted);
+    }
+
+    .trust-panel {
+      padding: 28px;
+      background: linear-gradient(180deg, #0f62fe 0%, #0c4fbf 100%);
+      color: white;
+    }
+
+    .trust-panel p, .trust-panel li { color: rgba(255,255,255,.9); }
+    .trust-panel ul { padding-left: 18px; margin-bottom: 0; }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    form { padding: 24px; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #d5dfec;
+      font: inherit;
+      margin-bottom: 16px;
+      background: white;
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    .contact-panel {
+      padding: 28px;
+      background: white;
+    }
+
+    .contact-panel ul {
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .notice {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #eaf9f2;
+      border: 1px solid #bee8d4;
+      color: #176543;
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 22px 0 38px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    @media (max-width: 960px) {
+      .hero-wrap, .grid-3, .grid-4, .split, .contact-wrap { grid-template-columns: 1fr; }
+      .stats, .search-grid { grid-template-columns: 1fr; }
+      .nav { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">Trustacco</div>
+      <nav class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#safety">Trust & Safety</a>
+        <a href="#hosts">For Hosts</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="#contact">Partner With Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div>
+          <span class="eyebrow">Accommodation platform focused on trust and safety</span>
+          <h1>Book verified stays with more confidence.</h1>
+          <p>
+            Trustacco is a modern accommodation marketplace for travelers and property partners who care about
+            secure bookings, verified listings, and a safer guest experience. Think of it as a trust-first stay platform.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">List Your Property</a>
+            <a class="btn btn-secondary" href="#safety">See Safety Features</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>Verified</strong>
+              Property and host review process
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              Support for booking concerns
+            </div>
+            <div class="stat">
+              <strong>Safer</strong>
+              Built around trust and transparency
+            </div>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <h3>Find your next trusted stay</h3>
+          <p>Designed for hotels, apartments, holiday homes, and business stays.</p>
+          <div class="search-grid">
+            <div class="field">
+              <small>Destination</small>
+              <strong>Where do you want to stay?</strong>
+            </div>
+            <div class="field">
+              <small>Check-in / Check-out</small>
+              <strong>Select your dates</strong>
+            </div>
+            <div class="field">
+              <small>Guests</small>
+              <strong>2 adults · 1 room</strong>
+            </div>
+            <div class="field">
+              <small>Stay type</small>
+              <strong>Hotel · Apartment · Villa</strong>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="#contact">Start Searching</a>
+          <div class="trust-highlight">Trustacco specialty: every experience is built around trust, safety, and reliable stays.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-title">
+          <h2>How Trustacco works</h2>
+          <p>We connect guests with accommodation partners while putting verification, transparency, and safety at the center.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">🏨</div>
+            <h3>Verified listings</h3>
+            <p>Properties go through a review process so guests can browse with more confidence and fewer surprises.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>Safer bookings</h3>
+            <p>Clear policies, transparent information, and trust-focused platform standards help reduce booking risk.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🤝</div>
+            <h3>Trusted stays</h3>
+            <p>Guests and hosts benefit from better support, clearer expectations, and a more reliable travel experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="safety">
+      <div class="container split">
+        <div class="card">
+          <h2>Trust & safety is our core difference</h2>
+          <p>
+            Unlike generic booking platforms, Trustacco is positioned around a single promise: helping people feel safer
+            when they book and stay. That means smarter screening, clearer communication, and stronger guest confidence.
+          </p>
+          <div class="feature-list">
+            <div class="check">Identity and property verification workflows</div>
+            <div class="check">Transparent listing details and booking conditions</div>
+            <div class="check">Trust indicators, reviews, and response standards</div>
+            <div class="check">Support pathways for emergencies, disputes, and booking concerns</div>
+          </div>
+        </div>
+
+        <div class="trust-panel">
+          <h2>Safety features you can highlight</h2>
+          <ul>
+            <li>Verified host and property badges</li>
+            <li>Secure payment and booking confirmation flow</li>
+            <li>Fraud prevention checks</li>
+            <li>Guest support before, during, and after the stay</li>
+            <li>Clear cancellation and house rule visibility</li>
+            <li>Review integrity and community standards</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="hosts">
+      <div class="container">
+        <div class="section-title">
+          <h2>Built for both guests and accommodation partners</h2>
+          <p>Trustacco can attract travelers looking for safer bookings and hosts who want a more credible platform presence.</p>
+        </div>
+        <div class="grid-4">
+          <div class="card">
+            <div class="icon">🌍</div>
+            <h3>For travelers</h3>
+            <p>Discover stays with stronger trust signals, clearer property details, and more confidence before booking.</p>
+          </div>
+          <div class="card">
+            <div class="icon">🏠</div>
+            <h3>For hosts</h3>
+            <p>Showcase your property in a platform that values credibility, responsible hosting, and guest satisfaction.</p>
+          </div>
+          <div class="card">
+            <div class="icon">📈</div>
+            <h3>For growth</h3>
+            <p>Position your brand as the safer alternative in the accommodation industry, not just another listing site.</p>
+          </div>
+          <div class="card">
+            <div class="icon">💬</div>
+            <h3>For support</h3>
+            <p>Use helpful communication and support systems to strengthen trust across the full booking journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div class="card">
+          <h2>Why Trustacco stands out</h2>
+          <p>Booking platforms often compete on price and volume. Trustacco can compete on confidence, credibility, and guest peace of mind.</p>
+          <div class="feature-list">
+            <div class="check">Trust-first brand identity</div>
+            <div class="check">Accommodation-focused website structure</div>
+            <div class="check">Clear messaging for both B2C and B2B partners</div>
+            <div class="check">Modern layout ready for future search and booking features</div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Suggested future website sections</h2>
+          <p>You can expand this website later into a full platform with more pages and features.</p>
+          <div class="feature-list">
+            <div class="check">Property listing page</div>
+            <div class="check">Search results and filters</div>
+            <div class="check">Single property details page</div>
+            <div class="check">Host dashboard and partner sign-up</div>
+            <div class="check">Trust center and safety policy page</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Let’s build safer stays together</h2>
+          <p>Use this section for host inquiries, partnership requests, investor contact, or traveler support.</p>
+        </div>
+        <div class="contact-wrap">
+          <form id="contactForm">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+            <label for="type">I am a</label>
+            <select id="type" name="type">
+              <option>Traveler</option>
+              <option>Property owner / host</option>
+              <option>Business partner</option>
+              <option>Investor</option>
+            </select>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us how we can help"></textarea>
+
+            <button class="btn btn-primary" type="submit">Send Message</button>
+            <div class="notice" id="formNotice">Thanks! This demo form is ready. Next, it can be connected to your real email or booking system.</div>
+          </form>
+
+          <div class="contact-panel">
+            <h3>Trustacco</h3>
+            <p>A trust-first accommodation business helping travelers book more confidently and helping hosts build stronger credibility.</p>
+            <ul>
+              <li>Email: hello@trustacco.com</li>
+              <li>Phone: +46 00 000 0000</li>
+              <li>Head office: Add your business address</li>
+              <li>Availability: 24/7 support for urgent booking concerns</li>
+            </ul>
+            <p>
+              You can also add app download links, social media, a map, live chat, or a dedicated Trust & Safety page here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Trustacco. Trusted stays, safer bookings.</div>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('formNotice').style.display = 'block';
+      this.reset();
+    });
+  </script>
+</body>
+</html>
